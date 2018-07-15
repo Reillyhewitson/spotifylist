@@ -2,9 +2,7 @@ import spotipy
 import spotipy.util as util
 import requests
 import json
-from multiprocessing import Pool
-pool = Pool()
-username = 'Reilly Hewitson'
+username = str(input("Hey what's your spotify username?"))
 def list_playlists(x, y,):
     number = -1
     for i in results['items']:
@@ -21,14 +19,14 @@ def list_songs(results, playlist, number, numreal, offset):
         for i in playresult['items']:
             number += 1
             numreal += 1
-            print(numreal, playresult['items'][number]['track']['name'])
+            print(numreal, playresult['items'][number]['track']['name'] + ' - ' + playresult['items'][number]['track']['album']['artists'][0]['name'])
 while True:
     '''
     print('1. List songs \n2. Play a song')
     select = str(input('What do you want to do? '))
     result = []
     if select == '1':'''
-    token = util.prompt_for_user_token('Reilly Hewitson','playlist-read-private',client_id='723d300829e842f8abb20a1d9dc8f80d',client_secret='23901c4170be4a27bc907e656797c640',redirect_uri='http://localhost')
+    token = util.prompt_for_user_token(username,'playlist-read-private',client_id='723d300829e842f8abb20a1d9dc8f80d',client_secret='23901c4170be4a27bc907e656797c640',redirect_uri='http://localhost')
     sp = spotipy.Spotify(auth=token)
     request = requests.get('https://api.spotify.com/v1/me/playlists' , headers = {'Authorization': 'Bearer ' + token})
     results = request.json()
@@ -36,7 +34,7 @@ while True:
     number = 99
     offset = 0
     numreal = 0
-    print('-------------------------------------------------')
+    print('-------------------------------------------------------------------------------------------------------------')
     list_songs(results, playlist, number, numreal, offset)
-    print('-------------------------------------------------')
+    print('-------------------------------------------------------------------------------------------------------------')
 
