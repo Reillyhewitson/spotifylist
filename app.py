@@ -21,20 +21,23 @@ def list_songs(results, playlist, number, numreal, offset):
             numreal += 1
             print(numreal, playresult['items'][number]['track']['name'] + ' - ' + playresult['items'][number]['track']['album']['artists'][0]['name'])
 while True:
-    '''
-    print('1. List songs \n2. Play a song')
-    select = str(input('What do you want to do? '))
-    result = []
-    if select == '1':'''
-    token = util.prompt_for_user_token(username,'playlist-read-private',client_id='723d300829e842f8abb20a1d9dc8f80d',client_secret='23901c4170be4a27bc907e656797c640',redirect_uri='http://localhost')
-    sp = spotipy.Spotify(auth=token)
-    request = requests.get('https://api.spotify.com/v1/me/playlists' , headers = {'Authorization': 'Bearer ' + token})
-    results = request.json()
-    playlist = list_playlists(request, results)
-    number = 99
-    offset = 0
-    numreal = 0
-    print('-------------------------------------------------------------------------------------------------------------')
-    list_songs(results, playlist, number, numreal, offset)
-    print('-------------------------------------------------------------------------------------------------------------')
+    try:
+        '''
+        print('1. List songs \n2. Play a song')
+        select = str(input('What do you want to do? '))
+        result = []
+        if select == '1':'''
+        token = util.prompt_for_user_token(username,'playlist-read-private',client_id='723d300829e842f8abb20a1d9dc8f80d',client_secret='23901c4170be4a27bc907e656797c640',redirect_uri='http://localhost')
+        sp = spotipy.Spotify(auth=token)
+        request = requests.get('https://api.spotify.com/v1/me/playlists' , headers = {'Authorization': 'Bearer ' + token})
+        results = request.json()
+        playlist = list_playlists(request, results)
+        number = 99
+        offset = 0
+        numreal = 0
+        print('-------------------------------------------------------------------------------------------------------------')
+        list_songs(results, playlist, number, numreal, offset)
+        print('-------------------------------------------------------------------------------------------------------------')
+    except:
+        print('uh oh. Something has gone wrong.')
 
